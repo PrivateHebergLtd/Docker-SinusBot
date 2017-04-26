@@ -6,7 +6,8 @@
 FROM debian:8
 MAINTAINER PrivateHeberg (PHClement)
 
-ENV SINUS_USER="3000" \
+ENV PORT="1023" \
+    SINUS_USER="3000" \
     SINUS_GROUP="3000" \
     SINUS_DIR="/sinusbot" \
     YTDL_BIN="/usr/local/bin/youtube-dl" \
@@ -47,6 +48,7 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     wget -q -O "$YTDL_BIN" "https://yt-dl.org/downloads/$YTDL_VERSION/youtube-dl" && \
     chmod 755 -f "$YTDL_BIN" && \
     echo "YoutubeDLPath = \"$YTDL_BIN\"" >> "$SINUS_DIR/config.ini" && \
+    echo "ListenPort = \"$PORT\"" >> "$SINUS_DIR/config.ini" && \
     chown -fR sinusbot:sinusbot "$SINUS_DIR" && \
     apt-get -q clean all && \
     rm -rf /tmp/* /var/tmp/*
@@ -55,6 +57,6 @@ COPY run.sh /run.sh
 
 VOLUME ["$SINUS_DATA", "$SINUS_DATA_SCRIPTS"]
 
-EXPOSE 8087
+EXPOSE $PORT
 
 ENTRYPOINT ["/run.sh"]
