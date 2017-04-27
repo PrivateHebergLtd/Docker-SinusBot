@@ -54,9 +54,10 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     rm -rf /tmp/* /var/tmp/*
 
 COPY run.sh /run.sh
+RUN chmod 777 /run.sh
 
 VOLUME ["$SINUS_DATA", "$SINUS_DATA_SCRIPTS"]
 
 EXPOSE $PORT
 
-ENTRYPOINT ["chmod", "+x", "/run.sh"]
+ENTRYPOINT ["/run.sh"]
