@@ -48,7 +48,7 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     wget -q -O "$YTDL_BIN" "https://yt-dl.org/downloads/$YTDL_VERSION/youtube-dl" && \
     chmod 755 -f "$YTDL_BIN" && \
     echo "YoutubeDLPath = \"$YTDL_BIN\"" >> "$SINUS_DIR/config.ini" && \
-    echo "ListenPort = \"$PORT\"" >> "$SINUS_DIR/config.ini" && \
+    sed 's/8087/$PORT/g' "$SINUS_DIR/config.ini" > "$SINUS_DIR/config.ini" && \
     chown -fR sinusbot:sinusbot "$SINUS_DIR" && \
     apt-get -q clean all && \
     rm -rf /tmp/* /var/tmp/*
