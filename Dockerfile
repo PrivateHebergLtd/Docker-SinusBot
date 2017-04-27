@@ -3,7 +3,7 @@
 #   PrivateHeberg©
 # ==================
 
-FROM debian:8
+FROM ubuntu:yakkety
 MAINTAINER PrivateHeberg (PHClement)
 
 ENV PORT="1023" \
@@ -13,7 +13,7 @@ ENV PORT="1023" \
     YTDL_BIN="/usr/local/bin/youtube-dl" \
     YTDL_VERSION="latest" \
     TS3_VERSION="3.0.19.4" \
-    TS3_DL_ADDRESS="http://dl.4players.de/ts/releases/3.0.19.4/TeamSpeak3-Client-linux_amd64-3.0.19.4.run" \
+    TS3_DL_ADDRESS="http://teamspeak.gameserver.gamed.de/ts3/releases/" \
     SINUSBOT_DL_URL="https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2"
 
 ENV SINUS_DATA="$SINUS_DIR/data" \
@@ -39,16 +39,16 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     mkdir -p "$TS3_DIR" && \
     cd "$SINUS_DIR" || exit 1 && \
     wget -q -O "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" \
-        "$TS3_DL_ADDRESS" && \
+        "$TS3_DL_ADDRESS/$TS3_VERSION/TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     chmod 755 "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     yes | "./TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     rm -f "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     cp -f "$SINUS_DIR/plugin/libsoundbot_plugin.so" "$TS3_DIR/plugins/" && \
     sed -i "s|^TS3Path.*|TS3Path = \"$TS3_DIR/ts3client_linux_amd64\"|g" "$SINUS_DIR/config.ini" && \
+    sed -i "s|^ListenPort.*|ListenPort = $PORT|g" "$SINUS_DIR/config.ini" && \
     wget -q -O "$YTDL_BIN" "https://yt-dl.org/downloads/$YTDL_VERSION/youtube-dl" && \
     chmod 755 -f "$YTDL_BIN" && \
     echo "YoutubeDLPath = \"$YTDL_BIN\"" >> "$SINUS_DIR/config.ini" && \
-    sed 's/8087/$PORT/g' "$SINUS_DIR/config.ini" > "$SINUS_DIR/config.ini" && \
     chown -fR sinusbot:sinusbot "$SINUS_DIR" && \
     apt-get -q clean all && \
     rm -rf /tmp/* /var/tmp/*
