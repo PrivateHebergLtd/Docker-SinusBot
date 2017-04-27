@@ -13,7 +13,7 @@ ENV PORT="1023" \
     YTDL_BIN="/usr/local/bin/youtube-dl" \
     YTDL_VERSION="latest" \
     TS3_VERSION="3.0.19.4" \
-    TS3_DL_ADDRESS="http://teamspeak.gameserver.gamed.de/ts3/releases/" \
+    TS3_DL_ADDRESS="http://dl.4players.de/ts/releases/3.0.19.4/TeamSpeak3-Client-linux_amd64-3.0.19.4.run" \
     SINUSBOT_DL_URL="https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2"
 
 ENV SINUS_DATA="$SINUS_DIR/data" \
@@ -39,7 +39,7 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     mkdir -p "$TS3_DIR" && \
     cd "$SINUS_DIR" || exit 1 && \
     wget -q -O "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" \
-        "$TS3_DL_ADDRESS/$TS3_VERSION/TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
+        "$TS3_DL_ADDRESS" && \
     chmod 755 "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     yes | "./TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     rm -f "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
