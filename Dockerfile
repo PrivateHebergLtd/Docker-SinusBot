@@ -6,7 +6,7 @@
 FROM ubuntu:yakkety
 MAINTAINER PrivateHeberg (PHClement)
 
-ENV PORT="1023" \
+ENV PORT=1023 \
     SINUS_USER="3000" \
     SINUS_GROUP="3000" \
     SINUS_DIR="/sinusbot" \
@@ -45,7 +45,7 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     rm -f "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     cp -f "$SINUS_DIR/plugin/libsoundbot_plugin.so" "$TS3_DIR/plugins/" && \
     sed -i "s|^TS3Path.*|TS3Path = \"$TS3_DIR/ts3client_linux_amd64\"|g" "$SINUS_DIR/config.ini" && \
-    sed -i "s|^ListenPort.*|ListenPort = $PORT|g" "$SINUS_DIR/config.ini" && \
+    sed -i "s|^ListenPort.*|ListenPort = "$PORT"|g" "$SINUS_DIR/config.ini" && \
     wget -q -O "$YTDL_BIN" "https://yt-dl.org/downloads/$YTDL_VERSION/youtube-dl" && \
     chmod 755 -f "$YTDL_BIN" && \
     echo "YoutubeDLPath = \"$YTDL_BIN\"" >> "$SINUS_DIR/config.ini" && \
