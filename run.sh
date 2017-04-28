@@ -9,6 +9,7 @@ if [ ! -z "$LOGPATH" ]; then
     echo "-> Setting Sinusbot log file location to \"$LOGPATH\" ..."
     grep -q '^LogFile' "$SINUS_DIR/config.ini" && sed -i 's#^LogFile.*#LogFile = "'"$LOGPATH"'"#g' "$SINUS_DIR/config.ini" \
         || echo "LogFile = \"$LOGPATH\"" >> "$SINUS_DIR/config.ini"
+    sed -i "s|^ListenPort.*|ListenPort = "${PORT}"|g" "$SINUS_DIR/config.ini" && \
     echo "=> Sinusbot logging to \"$LOGPATH\"."
 fi
 
@@ -47,4 +48,4 @@ $YTDL_BIN -U
 echo "=> Updated youtube-dl with exit code $?"
 
 echo "=> Starting SinusBotManager by PrivateHeberg ..."
-exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
+exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot -pwreset=foobar"
