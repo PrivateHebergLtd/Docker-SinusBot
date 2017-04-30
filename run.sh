@@ -5,6 +5,8 @@ if [ "$DEBUG" == "True" ] || [ "$DEBUG" == "true" ]; then
     sed -i 's/LogLevel.*/LogLevel = 10/g' "$SINUS_DIR/config.ini"
 fi
 
+sed -i 's/ListenPort.*/ListenPort = '${PORT}'' "$SINUS_DIR/config.ini"
+
 if [ ! -z "$LOGPATH" ]; then
     echo "-> Setting Sinusbot log file location to \"$LOGPATH\" ..."
     grep -q '^LogFile' "$SINUS_DIR/config.ini" && sed -i 's#^LogFile.*#LogFile = "'"$LOGPATH"'"#g' "$SINUS_DIR/config.ini" \
