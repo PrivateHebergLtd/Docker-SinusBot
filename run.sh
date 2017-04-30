@@ -50,4 +50,4 @@ $YTDL_BIN -U
 echo "=> Updated youtube-dl with exit code $?"
 
 echo "=> Starting SinusBotManager by PrivateHeberg ..."
-exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot -pwreset=foobar"
+exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
