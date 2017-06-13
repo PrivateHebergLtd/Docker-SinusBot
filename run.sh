@@ -60,5 +60,6 @@ if [ ! -f /${SINUS_DATA}/renewmdp.txt ]; then
     exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
 else
     echo "=> Changement de mot de passe"
+    rm /${SINUS_DATA}/renewmdp.txt
     exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot" -pwreset=G97gfd4FDS
 fi
