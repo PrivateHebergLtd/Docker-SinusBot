@@ -57,6 +57,7 @@ echo "=> ----------------"
 
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
 if [ ! -f /data/renewmdp.txt ]; then
+    echo 'yo' > /data/renewmdp.txt
     exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
 else
     pwd=$(</data/renewmdp.txt)
