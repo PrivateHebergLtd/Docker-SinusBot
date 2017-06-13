@@ -15,7 +15,7 @@ if [ ! -z "$LOGPATH" ]; then
     echo "=> Sinusbot logging to \"$LOGPATH\"."
 fi
 
-echo "-> Updating sinusbot user and group id if necessary ..."
+echo "-> Mise à jour de l'utilisateur SinusBot"
 if [ "$SINUS_USER" != "3000" ]; then
     usermod -u "#$SINUS_USER" sinusbot
 fi
@@ -23,38 +23,43 @@ if [ "$SINUS_GROUP" != "3000" ]; then
     groupmod -g "#$SINUS_GROUP" sinusbot
 fi
 
-echo "-> Correcting file and mount point permissions ..."
+echo "-> Correction des volumes de données"
 chown -fR sinusbot:sinusbot "$SINUS_DATA" "$SINUS_DATA_SCRIPTS"
-echo "=> Corrected mount point permissions."
+echo "=> Correction des volumes de données: Terminé"
 
-echo "-> Checking if scripts directory is empty"
+echo "-> Vérification des dossiers de scripts"
 if [ ! -f "$SINUS_DATA_SCRIPTS/.docker-sinusbot-installed" ]; then
-    echo "-> Copying original sinusbot scripts to volume ..."
+    echo "-> Copie des scripts vers le dossier monté"
     cp -af "$SINUS_DATA_SCRIPTS-orig/"* "$SINUS_DATA_SCRIPTS"
     touch "$SINUS_DATA_SCRIPTS/.docker-sinusbot-installed"
-    echo "=> Sinusbot scripts copied."
+    echo "=> Les scripts ont été copiés !"
 else
-    echo "=> Scripts directory is marked that scripts got copied. Nothing to do."
+    echo "=> Les scripts ont été copiés"
 fi
 
-echo "-> Checking for old data location ..."
+echo "-> Vérification des données ..."
 if [ -d "/data" ]; then
     rm -rf "$SINUS_DATA"
     ln -s /data "$SINUS_DATA"
-    echo "=> !! WARNING !! Please change your volume mounts from \"/data\" to the new location at \"$SINUS_DATA\"."
 else
-    echo "=> You are good to go! You are already using the new data directory, located at \"$SINUS_DATA\"."
+    echo "=> Données déjà vérifié!"
 fi
-echo "=> Updating Youtube-dl..."
+echo "=> Mise à jour de YouTubeDL..."
 $YTDL_BIN -U
-echo "=> Updated youtube-dl with exit code $?"
+echo "=> YoutubeDL mis à jour: $?"
 
-echo "=> Updating SinusBot"
+echo "=> Mise à jour de SinusBot"
 cd ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64
 wget https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2
 tar -xjvf sinusbot-beta.tar.bz2
 cp ${SINUS_DIR}/plugin/libsoundbot_plugin.so ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64/plugins
 echo "=> ----------------"
 
-echo "=> Starting SinusBotManager by PrivateHeberg ..."
-exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
+echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
+if [ ! -f /data/renewmdp.txt ]; then
+    cd  "$SINUS_DIR" && ./sinusbot -RunningAsRootIsEvilAndIKnowThat
+else
+    pwd=$(</data/renewmdp.txt)
+    rm /data/renewmdp.txt
+    cd  "$SINUS_DIR" && ./sinusbot -RunningAsRootIsEvilAndIKnowThat -pwreset=${pwd}
+fi
