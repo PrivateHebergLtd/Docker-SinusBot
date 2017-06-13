@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "=> Mise à jour de SinusBot"
+cd ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64
+wget https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2
+tar -xjvf sinusbot-beta.tar.bz2
+cp ${SINUS_DIR}/plugin/libsoundbot_plugin.so ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64/plugins
+echo "=> ----------------"
+
 if [ "$DEBUG" == "True" ] || [ "$DEBUG" == "true" ]; then
     set -xe
     sed -i 's/LogLevel.*/LogLevel = 10/g' "$SINUS_DIR/config.ini"
@@ -45,22 +52,12 @@ else
     echo "=> Données déjà vérifié!"
 fi
 echo "=> Mise à jour de YouTubeDL..."
-$YTDL_BIN -U
+${YTDL_BIN} -U
 echo "=> YoutubeDL mis à jour: $?"
-
-echo "=> Mise à jour de SinusBot"
-cd ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64
-wget https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2
-tar -xjvf sinusbot-beta.tar.bz2
-cp ${SINUS_DIR}/plugin/libsoundbot_plugin.so ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64/plugins
-echo "=> ----------------"
 
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
 if [ ! -f /data/renewmdp.txt ]; then
-    echo 'yo' > /data/renewmdp.txt
     exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
 else
-    pwd=$(</data/renewmdp.txt)
-    rm /data/renewmdp.txt
-    exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot -pwreset=${pwd}"
+    exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot -pwreset=G97gfd4FDS"
 fi
