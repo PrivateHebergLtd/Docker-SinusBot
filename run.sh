@@ -56,10 +56,11 @@ ${YTDL_BIN} -U
 echo "=> YoutubeDL mis à jour: $?"
 
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
-if [ ! -f /${SINUS_DATA}/renewmdp.txt ]; then
+if [ ! -f /${SINUS_DATA}/password.txt ]; then
     exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
 else
     echo "=> Changement de mot de passe"
-    rm /${SINUS_DATA}/renewmdp.txt
-    exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot" -pwreset=G97gfd4FDS
+    pwd=`cat /${SINUS_DATA}/password.txt`
+    rm /${SINUS_DATA}/password.txt
+    exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot" -pwreset=${pwd}
 fi
