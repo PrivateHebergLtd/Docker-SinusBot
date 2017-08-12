@@ -3,7 +3,7 @@
 echo "=> Mise à jour de SinusBot"
 cd ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64
 wget https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2
-tar -xjvf --overwrite sinusbot-beta.tar.bz2
+tar -xjvf sinusbot-beta.tar.bz2
 cp ${SINUS_DIR}/plugin/libsoundbot_plugin.so ${SINUS_DIR}/TeamSpeak3-Client-linux_amd64/plugins
 echo "=> ----------------"
 
