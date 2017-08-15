@@ -7,8 +7,8 @@ FROM ubuntu:yakkety
 MAINTAINER PrivateHeberg (PHClement)
 
 ENV PORT=1023 \
-    SINUS_USER="3000" \
-    SINUS_GROUP="3000" \
+    SINUS_USER="sinusbot" \
+    SINUS_GROUP="ts3" \
     SINUS_DIR="/sinusbot" \
     YTDL_BIN="/usr/local/bin/youtube-dl" \
     YTDL_VERSION="latest" \
