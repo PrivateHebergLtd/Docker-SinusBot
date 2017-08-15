@@ -44,6 +44,7 @@ if [ -d "/data" ]; then
 else
     echo "=> Données déjà vérifié!"
 fi
+
 echo "=> Mise à jour de YouTubeDL..."
 ${YTDL_BIN} -U
 echo "=> YoutubeDL mis à jour: $?"
