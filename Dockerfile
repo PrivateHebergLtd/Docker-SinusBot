@@ -43,7 +43,6 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     chmod 755 "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     yes | "./TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
     rm -f "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" && \
-    mkdir "$TS3_DIR/plugins/" && \
     cp -f "$SINUS_DIR/plugin/libsoundbot_plugin.so" "$TS3_DIR/plugins/" && \
     sed -i "s|^TS3Path.*|TS3Path = \"$TS3_DIR/ts3client_linux_amd64\"|g" "$SINUS_DIR/config.ini" && \
     sed -i "s|^ListenPort.*|ListenPort = "$PORT"|g" "$SINUS_DIR/config.ini" && \
