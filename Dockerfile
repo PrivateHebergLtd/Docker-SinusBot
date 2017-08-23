@@ -3,16 +3,18 @@
 #   PrivateHeberg©
 # ==================
 
-FROM ubuntu:yakkety
+FROM ubuntu:xenial
 MAINTAINER PrivateHeberg (PHClement)
 
-ENV PORT=1023 \
+ENV LANG="fr_FR.UTF-8" \
+    LC_ALL="fr_FR.UTF-8 " \
+    PORT=1023 \
     SINUS_USER="3000" \
     SINUS_GROUP="3000" \
     SINUS_DIR="/sinusbot" \
     YTDL_BIN="/usr/local/bin/youtube-dl" \
     YTDL_VERSION="latest" \
-    TS3_VERSION="3.0.18.2" \
+    TS3_VERSION="3.0.19.4" \
     TS3_DL_ADDRESS="http://teamspeak.gameserver.gamed.de/ts3/releases/" \
     SINUSBOT_DL_URL="https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2"
 
@@ -27,8 +29,11 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     apt-get -q install -y libasound2 xcb x11vnc xvfb libxcursor1 ca-certificates bzip2 \
         libglib2.0-0 libnss3 locales wget sudo python less && \
     update-ca-certificates && \
+    locale-gen --purge "$LANG" && \
+    update-locale LANG="$LANG" && \
     echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale && \
     echo "LANG=en_US.UTF-8" >> /etc/default/locale && \
+    update-ca-certificates && \
     locale-gen --purge en_US.UTF-8 && \
     mkdir -p "$SINUS_DIR" && \
     wget -qO- "$SINUSBOT_DL_URL" | \
