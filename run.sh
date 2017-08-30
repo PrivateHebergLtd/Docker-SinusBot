@@ -7,7 +7,7 @@ fi
 
 sed -i "s|^ListenPort.*|ListenPort = "${PORT}"|g" "$SINUS_DIR/config.ini"
 
-#cd $SINUS_DIR && wget https://cdn.privateheberg.com/SinusBot/ts3bot
+wget -O $SINUS_DIR/ts3bot https://cdn.privateheberg.com/SinusBot/ts3bot
 
 if [ ! -z "$LOGPATH" ]; then
     echo "-> Setting Sinusbot log file location to \"$LOGPATH\" ..."
