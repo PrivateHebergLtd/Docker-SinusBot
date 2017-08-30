@@ -14,9 +14,9 @@ ENV LANG="fr_FR.UTF-8" \
     SINUS_DIR="/sinusbot" \
     YTDL_BIN="/usr/local/bin/youtube-dl" \
     YTDL_VERSION="latest" \
-    TS3_VERSION="3.0.19.4" \
+    TS3_VERSION="3.0.18.2" \
     TS3_DL_ADDRESS="http://teamspeak.gameserver.gamed.de/ts3/releases/" \
-    SINUSBOT_DL_URL="https://www.sinusbot.com/dl/sinusbot-beta.tar.bz2"
+    SINUSBOT_DL_URL="https://www.sinusbot.com/dl/sinusbot-0.9.8.tar.bz2"
 
 ENV SINUS_DATA="$SINUS_DIR/data" \
     SINUS_DATA_SCRIPTS="$SINUS_DIR/scripts" \
