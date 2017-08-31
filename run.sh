@@ -54,9 +54,7 @@ if [ ! -f /${SINUS_DATA}/password.txt ]; then
     cd $SINUS_DIR
     exec sudo -u sinusbot -g sinusbot "./ts3bot"
 else
-    echo "=> Changement de mot de passe"
-    pwd=`cat /${SINUS_DATA}/password.txt`
     rm /${SINUS_DATA}/password.txt
     cd $SINUS_DIR
-    exec sudo -u sinusbot -g sinusbot "./ts3bot" -pwreset="${pwd}"
+    exec sudo -u sinusbot -g sinusbot "./ts3bot" -gentoken=true
 fi
