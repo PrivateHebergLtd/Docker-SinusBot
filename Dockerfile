@@ -39,7 +39,7 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     wget -qO- "$SINUSBOT_DL_URL" | \
     tar -xjf- -C "$SINUS_DIR" && \
     cp -f "$SINUS_DIR/config.ini.dist" "$SINUS_DIR/config.ini" && \
-    sed -i 's|^DataDir.*|DataDir = '"$SINUS_DATA"'|g' "$SINUS_DIR/config.ini" && \
+    sed -i 's|^DataDir.*|DataDir = '\"$SINUS_DATA\"'|g' "$SINUS_DIR/config.ini" && \
     mkdir -p "$TS3_DIR" && \
     cd "$SINUS_DIR" || exit 1 && \
     wget -q -O "TeamSpeak3-Client-linux_amd64-$TS3_VERSION.run" \
