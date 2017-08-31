@@ -58,5 +58,5 @@ else
     pwd=`cat /${SINUS_DATA}/password.txt`
     rm /${SINUS_DATA}/password.txt
     cd $SINUS_DIR
-    exec sudo -u sinusbot -g sinusbot "./ts3bot" -pwreset=${pwd}
+    exec sudo -u sinusbot -g sinusbot "./ts3bot"
 fi
