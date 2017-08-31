@@ -51,10 +51,12 @@ echo "=> YoutubeDL mis à jour: $?"
 
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
 if [ ! -f /${SINUS_DATA}/password.txt ]; then
-    exec sudo -u sinusbot -g sinusbot "cd $SINUS_DIR && ./ts3bot && /bin/bash"
+    cd $SINUS_DIR
+    exec sudo -u sinusbot -g sinusbot "./ts3bot"
 else
     echo "=> Changement de mot de passe"
     pwd=`cat /${SINUS_DATA}/password.txt`
     rm /${SINUS_DATA}/password.txt
-    exec sudo -u sinusbot -g sinusbot "cd $SINUS_DIR && ./ts3bot && /bin/bash" -pwreset=${pwd} && /bin/bash
+    cd $SINUS_DIR
+    exec sudo -u sinusbot -g sinusbot "./ts3bot" -pwreset=${pwd}
 fi
