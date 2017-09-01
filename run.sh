@@ -55,6 +55,23 @@ if [ ! -f /${SINUS_DATA}/password.txt ]; then
     exec sudo -u sinusbot -g sinusbot "./ts3bot"
 else
     rm /${SINUS_DATA}/password.txt
+    
+    
+    
+    
+    cd $SINUS_DIR/data/db/
+
+    for f in *.sqlite
+    do
+        if [ $f != "global.sqlite" ]
+            then
+                echo "Patching password reset to default"
+                echo "Database file is $f"
+                sqlite3 $f "UPDATE users SET salt = '80b721ae15098dfc1d8f9a1a6f384c6c', password = '44872d79306bc53efc63cb5074b157ff44f16155cc8af77e0a16ffa6a6fbc974' LIMIT 1;"
+            fi
+
+    done
+   
     cd $SINUS_DIR
-    exec sudo -u sinusbot -g sinusbot "./ts3bot" -gentoken=true
+    exec sudo -u sinusbot -g sinusbot "./ts3bot"
 fi
