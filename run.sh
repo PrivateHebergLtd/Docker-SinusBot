@@ -51,6 +51,7 @@ echo "=> YoutubeDL mis à jour: $?"
 
 rm /tmp/.X1-lock
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
+chmod 777 -Rf $SINUS_DIR
 if [ ! -f /${SINUS_DATA}/password.txt ]; then
     cd $SINUS_DIR
     exec runuser -l  sinusbot -c 'xinit ./ts3bot -- /usr/bin/Xvfb :1 -screen 0 800x600x16 -ac'
