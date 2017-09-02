@@ -52,7 +52,7 @@ echo "=> YoutubeDL mis à jour: $?"
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
 if [ ! -f /${SINUS_DATA}/password.txt ]; then
     cd $SINUS_DIR
-    exec sudo -u sinusbot -g sinusbot "xinit ./ts3bot -- /usr/bin/Xvfb :1 -screen 0 800x600x16 -ac"
+    exec runuser -l  sinusbot -c 'xinit ./ts3bot -- /usr/bin/Xvfb :1 -screen 0 800x600x16 -ac'
 else
     rm /${SINUS_DATA}/password.txt
     
@@ -70,5 +70,5 @@ else
     done
    
     cd $SINUS_DIR
-    exec sudo -u sinusbot -g sinusbot "xinit ./ts3bot -- /usr/bin/Xvfb :1 -screen 0 800x600x16 -ac"
+    exec runuser -l  sinusbot -c 'xinit ./ts3bot -- /usr/bin/Xvfb :1 -screen 0 800x600x16 -ac'
 fi
