@@ -38,7 +38,6 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     mkdir -p "$SINUS_DIR" && \
     wget -qO- "$SINUSBOT_DL_URL" | \
     tar -xjf- -C "$SINUS_DIR" && \
-    cp -f "$SINUS_DIR/config.ini.dist" "$SINUS_DIR/config.ini" && \
     sed -i 's|^DataDir.*|DataDir = '\"$SINUS_DATA\"'|g' "$SINUS_DIR/config.ini" && \
     mkdir -p "$TS3_DIR" && \
     cd "$SINUS_DIR" || exit 1 && \
