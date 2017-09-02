@@ -16,7 +16,7 @@ ENV LANG="fr_FR.UTF-8" \
     YTDL_VERSION="latest" \
     TS3_VERSION="3.0.18.2" \
     TS3_DL_ADDRESS="http://teamspeak.gameserver.gamed.de/ts3/releases/" \
-    SINUSBOT_DL_URL="https://cdn.privateheberg.com/SinusBot/sinusbot-0.9.8.tar.bz2"
+    SINUSBOT_DL_URL="https://cdn.privateheberg.com/SinusBot/sinusbot-0.9.8.tar.gz"
 
 ENV SINUS_DATA="$SINUS_DIR/data" \
     SINUS_DATA_SCRIPTS="$SINUS_DIR/scripts" \
@@ -26,8 +26,7 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     useradd -u "$SINUS_USER" -g "$SINUS_GROUP" -d "$SINUS_DIR" sinusbot && \
     apt-get -q update -y && \
     apt-get -q upgrade -y && \
-    apt-get -q install -y libasound2 xinit xvfb sqlite3 xcb x11vnc libxcursor1 ca-certificates bzip2 \
-        libglib2.0-0 libnss3 locales wget sudo python less && \
+    apt-get -q install -y x11vnc xinit xvfb libxcursor1 ca-certificates bzip2 curl libglib2.0-0 sqlite3 locales wget sudo python less && \
     update-ca-certificates && \
     locale-gen --purge "$LANG" && \
     update-locale LANG="$LANG" && \
@@ -38,7 +37,6 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     mkdir -p "$SINUS_DIR" && \
     wget -qO- "$SINUSBOT_DL_URL" | \
     tar -xjf- -C "$SINUS_DIR" && \
-    cp -f "$SINUS_DIR/config.ini.dist" "$SINUS_DIR/config.ini" && \
     sed -i 's|^DataDir.*|DataDir = '\"$SINUS_DATA\"'|g' "$SINUS_DIR/config.ini" && \
     mkdir -p "$TS3_DIR" && \
     cd "$SINUS_DIR" || exit 1 && \
