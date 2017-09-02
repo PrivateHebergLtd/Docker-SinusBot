@@ -26,7 +26,8 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     useradd -u "$SINUS_USER" -g "$SINUS_GROUP" -d "$SINUS_DIR" sinusbot && \
     apt-get -q update -y && \
     apt-get -q upgrade -y && \
-    apt-get -q install -y x11vnc xinit xvfb libxcursor1 ca-certificates bzip2 curl libglib2.0-0 sqlite3 locales wget sudo python less && \
+    apt-get -q install -y libasound2 xinit xvfb sqlite3 xcb x11vnc libxcursor1 ca-certificates bzip2 \
+        libglib2.0-0 libnss3 locales wget sudo python less && \
     update-ca-certificates && \
     locale-gen --purge "$LANG" && \
     update-locale LANG="$LANG" && \
@@ -37,6 +38,7 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     mkdir -p "$SINUS_DIR" && \
     wget -qO- "$SINUSBOT_DL_URL" | \
     tar -xjf- -C "$SINUS_DIR" && \
+    cp -f "$SINUS_DIR/config.ini.dist" "$SINUS_DIR/config.ini" && \
     sed -i 's|^DataDir.*|DataDir = '\"$SINUS_DATA\"'|g' "$SINUS_DIR/config.ini" && \
     mkdir -p "$TS3_DIR" && \
     cd "$SINUS_DIR" || exit 1 && \
