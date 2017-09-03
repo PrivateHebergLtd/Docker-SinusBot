@@ -48,6 +48,7 @@ fi
 echo "=> Mise à jour de YouTubeDL..."
 ${YTDL_BIN} -U
 echo "=> YoutubeDL mis à jour: $?"
+chmod 777 -Rf $SINUS_DIR
 
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
 if [ ! -f /${SINUS_DATA}/password.txt ]; then
