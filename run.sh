@@ -49,28 +49,12 @@ echo "=> Mise à jour de YouTubeDL..."
 ${YTDL_BIN} -U
 echo "=> YoutubeDL mis à jour: $?"
 
-rm /tmp/.X1-lock
 echo "=> Démarrage SinusBotManager par PrivateHeberg ..."
-chmod 777 -Rf $SINUS_DIR
 if [ ! -f /${SINUS_DATA}/password.txt ]; then
-    cd $SINUS_DIR
-    exec runuser -l  sinusbot -c 'xinit ./ts3bot -- /usr/bin/Xvfb :1 -screen 0 800x600x16 -ac'
+    exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot"
 else
+    echo "=> Changement de mot de passe"
+    pwd=`cat /${SINUS_DATA}/password.txt`
     rm /${SINUS_DATA}/password.txt
-    
-    cd $SINUS_DIR/data/db/
-
-    for f in *.sqlite
-    do
-        if [ $f != "global.sqlite" ]
-            then
-                echo "Patching password reset to default"
-                echo "Database file is $f"
-                sqlite3 $f "UPDATE users SET salt = '80b721ae15098dfc1d8f9a1a6f384c6c', password = '44872d79306bc53efc63cb5074b157ff44f16155cc8af77e0a16ffa6a6fbc974' LIMIT 1;"
-            fi
-
-    done
-   
-    cd $SINUS_DIR
-    exec runuser -l  sinusbot -c 'xinit ./ts3bot -- /usr/bin/Xvfb :1 -screen 0 800x600x16 -ac'
+    exec sudo -u sinusbot -g sinusbot "$SINUS_DIR/sinusbot" -pwreset=${pwd}
 fi
