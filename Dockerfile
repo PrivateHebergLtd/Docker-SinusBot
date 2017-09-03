@@ -22,7 +22,8 @@ RUN cd /opt/ts3soundboard/ && wget https://www.sinusbot.com/pre/sinusbot-0.9.18-
 RUN cd /opt/ts3soundboard/ && wget http://teamspeak.gameserver.gamed.de/ts3/releases/3.0.19.4/TeamSpeak3-Client-linux_amd64-3.0.19.4.run
 
 #Setting Up Files
-ADD config.ini /opt/ts3soundboard/config.ini
+
+RUN cp /opt/ts3soundboard/config.ini.dist /opt/ts3soundboard/config.ini
 RUN cd /opt/ts3soundboard/ && tar -xjvf sinusbot-0.9.18-8499d2c.tar.bz2
 RUN cd /opt/ts3soundboard/ && chmod 0755 TeamSpeak3-Client-linux_amd64-3.0.19.4.run
 RUN sed -i 's/^MS_PrintLicense$//' /opt/ts3soundboard/TeamSpeak3-Client-linux_amd64-3.0.19.4.run
