@@ -26,8 +26,8 @@ RUN groupadd -g "$SINUS_GROUP" sinusbot && \
     useradd -u "$SINUS_USER" -g "$SINUS_GROUP" -d "$SINUS_DIR" sinusbot && \
     apt-get -q update -y && \
     apt-get -q upgrade -y && \
-    apt-get -q install -y libasound2 xcb x11vnc xvfb libxcursor1 ca-certificates bzip2 \
-        libglib2.0-0 libnss3 locales wget sudo python less && \
+    apt-get -q install -y libasound2 xcb xinit x11vnc xvfb libxcursor1 ca-certificates bzip2 \
+        libglib2.0-0 sqlite3 libnss3 locales wget sudo python less && \
     update-ca-certificates && \
     locale-gen --purge "$LANG" && \
     update-locale LANG="$LANG" && \
